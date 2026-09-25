@@ -183,6 +183,8 @@ features for Bitcoin users:
   other opcodes can run tests on it in order to enforce restrictions
   on the spending transaction.
 
+  Note that `OP_CSFS` only verifies a signature against the message supplied to it; it does not read the spending transaction's data off the stack itself.  To use the technique above for introspection, the serialized spending transaction must be assembled as `OP_CSFS`'s message, which in practice requires [OP_CAT][topic op_cat] to concatenate the transaction's fields (see the Relationship to OP_CAT section below).
+
   For example, if `OP_CSFS` had been available in 2015 and 2016, it
   would've been possible to implement the features of [BIP65][]
   `OP_CHECKLOCKTIMEVERIFY` (CLTV) and [BIP112][]
