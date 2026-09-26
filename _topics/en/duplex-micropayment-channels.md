@@ -19,7 +19,7 @@ topic-categories:
 ## "[title](link)"
 primary_sources:
   - title: Bitcoin Duplex Micropayment Channels
-    link: https://tik-old.ee.ethz.ch/file//716b955c130e6c703fac336ea17b1670/duplex-micropayment-channels.pdf
+    link: https://tik-old.ee.ethz.ch/file/716b955c130e6c703fac336ea17b1670/duplex-micropayment-channels.pdf
 
 ## Optional.  Each entry requires "title" and "url".  May also use "feature:
 ## true" to bold entry and "date"

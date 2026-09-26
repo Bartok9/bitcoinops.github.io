@@ -41,7 +41,7 @@ lang: zh
 {% include linkers/issues.md issues="903,4078,3865" %}
 [trevethan statechains]: https://gnusha.org/url/https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2020-March/017714.html
 [statechain overview]: https://medium.com/@RubenSomsen/statechains-non-custodial-off-chain-bitcoin-transfer-1ae4845a4a39
-[duplex micropayment channels]: https://tik-old.ee.ethz.ch/file//716b955c130e6c703fac336ea17b1670/duplex-micropayment-channels.pdf
+[duplex micropayment channels]: https://tik-old.ee.ethz.ch/file/716b955c130e6c703fac336ea17b1670/duplex-micropayment-channels.pdf
 [mpc]: https://en.wikipedia.org/wiki/Secure_multi-party_computation
 [scriptless scripts]: https://github.com/ElementsProject/scriptless-scripts
 [fournier dpa]: https://gnusha.org/url/https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2020-March/017709.html
