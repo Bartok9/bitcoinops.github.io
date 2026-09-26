@@ -21,7 +21,7 @@ excerpt: >
 ## "[title](link)"
 primary_sources:
     - title: Update to BOLT specifaction adding optional large channel support
-      link: https://github.com/lightningnetwork/lightning-rfc//pull/596
+      link: https://github.com/lightningnetwork/lightning-rfc/pull/596
 
 ## Optional.  Each entry requires "title", "url", and "date".  May also use "feature:
 ## true" to bold entry

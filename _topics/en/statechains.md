@@ -100,4 +100,4 @@ usable on Bitcoin without depending on any proposed consensus changes.
 
 {% include references.md %}
 {% include linkers/issues.md issues="" %}
-[duplex micropayment channels]: https://tik-old.ee.ethz.ch/file//716b955c130e6c703fac336ea17b1670/duplex-micropayment-channels.pdf
+[duplex micropayment channels]: https://tik-old.ee.ethz.ch/file/716b955c130e6c703fac336ea17b1670/duplex-micropayment-channels.pdf
