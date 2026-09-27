@@ -174,14 +174,17 @@ features for Bitcoin users:
   same key to derive the private key used to create them, allowing
   them to spend any other funds secured by that key.
 
-- **Transaction introspection:** If the same pubkey and signature pair
-  are valid both with `OP_CSFS` and `OP_CHECKSIG`, then the contents
-  of the arbitrary message passed to `OP_CSFS` is identical to the
-  serialized spending transaction (and other data) implicitly used
-  with `OP_CHECKSIG`.  This makes it possible to put a validated copy
-  of the spending transaction on the script evaluation stack where
-  other opcodes can run tests on it in order to enforce restrictions
-  on the spending transaction.
+- **Transaction introspection:** `OP_CSFS` allows a script to verify a signature
+  against an arbitrary message, such as a serialized spending transaction.  If
+  the same pubkey and signature pair are valid both with `OP_CSFS` and
+  `OP_CHECKSIG`, then the message passed to `OP_CSFS` is identical to the
+  transaction data implicitly signed with `OP_CHECKSIG`.  Scripts can use this
+  to place a validated copy of the transaction data on the stack, where other
+  opcodes can test it to enforce spending restrictions.  Building the
+  serialized transaction message on the stack typically requires an opcode like
+  `OP_CAT` that can concatenate transaction fields together, so transaction
+  introspection is usually a combined feature of `OP_CSFS` and `OP_CAT` (or an
+  equivalent serialization mechanism).
 
   For example, if `OP_CSFS` had been available in 2015 and 2016, it
   would've been possible to implement the features of [BIP65][]
