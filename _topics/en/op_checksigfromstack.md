@@ -174,22 +174,30 @@ features for Bitcoin users:
   same key to derive the private key used to create them, allowing
   them to spend any other funds secured by that key.
 
-- **Transaction introspection:** If the same pubkey and signature pair
-  are valid both with `OP_CSFS` and `OP_CHECKSIG`, then the contents
-  of the arbitrary message passed to `OP_CSFS` is identical to the
-  serialized spending transaction (and other data) implicitly used
-  with `OP_CHECKSIG`.  This makes it possible to put a validated copy
-  of the spending transaction on the script evaluation stack where
-  other opcodes can run tests on it in order to enforce restrictions
-  on the spending transaction.
+- **Transaction introspection:** `OP_CSFS` allows a script to verify a signature
+  against an arbitrary message, such as a serialized spending transaction.  If
+  the same pubkey and signature pair are valid both with `OP_CSFS` and
+  `OP_CHECKSIG`, then the message passed to `OP_CSFS` is identical to the
+  transaction data implicitly signed with `OP_CHECKSIG`.  This makes it
+  possible to place a validated copy of the transaction data on the script
+  evaluation stack where other opcodes can run tests on it in order to enforce
+  restrictions on the spending transaction.
 
-  For example, if `OP_CSFS` had been available in 2015 and 2016, it
-  would've been possible to implement the features of [BIP65][]
+  Constructing the serialized transaction message on the stack, however,
+  requires an opcode that can concatenate transaction fields together---such as
+  [OP_CAT][topic op_cat] (or an equivalent serialization mechanism).  Transaction
+  introspection is therefore a combined feature of `OP_CSFS` and such a
+  serialization opcode, not a capability of `OP_CSFS` alone.
+
+  For example, if `OP_CSFS` and `OP_CAT` had been available in 2015 and 2016,
+  it would've been possible to implement the features of [BIP65][]
   `OP_CHECKLOCKTIMEVERIFY` (CLTV) and [BIP112][]
-  `OP_CHECKSEQUENCEVERIFY` (CSV) using without any consensus changes
-  just by writing a verification script.
+  `OP_CHECKSEQUENCEVERIFY` (CSV) without any consensus changes, just by
+  writing a verification script that assembles the spending transaction and
+  checks it against the relevant consensus rules.
 
-  Looking forward, `OP_CSFS` could also allow scripts to [implement
+  Looking forward, `OP_CSFS` (combined with `OP_CAT` or another serialization
+  mechanism) could also allow scripts to [implement
   the features][oconnor generic] of the proposed [SIGHASH_ANYPREVOUT][topic
   sighash_anyprevout] signature hash, as
   well as other opcode proposals such as
@@ -200,16 +208,15 @@ features for Bitcoin users:
   restrict its spending transaction to a small set of acceptable
   scriptPubKeys to limit the risk of theft.
 
-  The strength of `OP_CSFS` is that it provides full introspection
-  of the signing transaction in a completely generic way.  Its
-  weakness is that it requires essentially adding a complete copy of
-  the signing transaction to the stack, which may significantly
-  increase the size of transactions that want to use `OP_CSFS` for
-  introspection.  By comparison, single-purpose introspection
-  opcodes such as CLTV and CSV use minimal overhead, but adding each
-  new special introspection opcode requires a consensus change and
-  it may not be possible to disable their use (even if they become
-  unpopular) without risking someone losing money.
+  The strength of `OP_CSFS` (with a serialization opcode) is that it provides
+  generic introspection of the signing transaction in a completely flexible
+  way.  Its weakness is that it requires essentially adding a complete copy of
+  the signing transaction to the stack, which may significantly increase the
+  size of transactions that want to use this approach for introspection.  By
+  comparison, single-purpose introspection opcodes such as CLTV and CSV use
+  minimal overhead, but adding each new special introspection opcode requires a
+  consensus change and it may not be possible to disable their use (even if
+  they become unpopular) without risking someone losing money.
 
 ### Relationship to OP_CAT
 
